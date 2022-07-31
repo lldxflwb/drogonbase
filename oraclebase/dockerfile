@@ -1,0 +1,5 @@
+FROM gcc:11.3.0
+EXPOSE 8080
+EXPOSE 22
+RUN apt-get update && \
+    apt-get install git cmake make libjsoncpp-dev uuid-dev openssl libssl-dev zlib1g-dev libboost-dev postgresql-all openssh-server vim rpm -y 
