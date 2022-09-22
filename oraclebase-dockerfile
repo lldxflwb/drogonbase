@@ -12,7 +12,7 @@ RUN apt-get update && \
     libboost-system-dev -y  
 # compile the protocl
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash && \
-    source ~/.bashrc && \ 
+    source /root/.bashrc && \ 
     nvm install v12.22.12 && \
     git clone https://github.com/confluentinc/avro-cpp-packaging && \
     cd avro-cpp-packaging && mkdir build && cd build && \
