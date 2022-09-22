@@ -9,7 +9,7 @@ RUN apt-get update && \
     vim rpm libaio-dev alien rsync \
     libboost-dev libboost-filesystem-dev \
     libboost-iostreams-dev libboost-program-options-dev \
-    libboost-system-dev -y && \
+    libboost-system-dev -y && 
 # compile the protocl
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash && \
     source ~/.bashrc && \ 
