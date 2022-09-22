@@ -2,4 +2,16 @@ FROM gcc:11.3.0
 EXPOSE 8080
 EXPOSE 22
 RUN apt-get update && \
-    apt-get install git gdb cmake make libjsoncpp-dev uuid-dev openssl libssl-dev zlib1g-dev libboost-dev postgresql-all openssh-server vim rpm libaio-dev alien rsync -y 
+    apt-get install git gdb cmake make \
+    libjsoncpp-dev uuid-dev openssl \
+    libssl-dev zlib1g-dev libboost-dev \
+    postgresql-all openssh-server \
+    vim rpm libaio-dev alien rsync \
+    libboost-dev libboost-filesystem-dev \
+    libboost-iostreams-dev libboost-program-options-dev \
+    libboost-system-dev -y && \
+    git clone https://github.com/confluentinc/avro-cpp-packaging && \
+    cd avro-cpp-packaging && mkdir build && cd build && \
+    cmake -G "Unix Makefiles" .. && make && make install && \
+    cd ../.. && git clone https://bitbucket.org/energistics/etp-cpp.git && \ 
+    cd etp-cpp && cd build && cmake .. && make && make install 
