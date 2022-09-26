@@ -1,10 +1,10 @@
 FROM gcc:11.3.0
 EXPOSE 8080
 EXPOSE 22
-# ENV http_proxy "http://192.168.2.105:10811"
-# ENV HTTP_PROXY "http://192.168.2.105:10811"
-# ENV https_proxy "http://192.168.2.105:10811"
-# ENV HTTPS_PROXY "http://192.168.2.105:10811"
+# ENV http_proxy "http://192.168.2.106:10811"
+# ENV HTTP_PROXY "http://192.168.2.106:10811"
+# ENV https_proxy "http://192.168.2.106:10811"
+# ENV HTTPS_PROXY "http://192.168.2.106:10811"
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 RUN apt-get update && \
@@ -15,17 +15,18 @@ RUN apt-get update && \
     vim rpm libaio-dev alien rsync \
     libboost-dev libboost-filesystem-dev \
     libboost-iostreams-dev libboost-program-options-dev \
-    libboost-system-dev -y  
-# compile the protocl
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash && \
+    libboost-system-dev -y  && \
+    cd /root/ && git clone https://github.com/apache/avro.git && \
+    cd /root/ && git clone https://bitbucket.org/energistics/etp-cpp.git && \
+    cd /root/ && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash && \
     source /root/.bashrc && \ 
-    nvm install v12.22.12 && \
-    git clone https://github.com/confluentinc/avro-cpp-packaging && \
-    cd avro-cpp-packaging && mkdir build && cd build && \
-    cmake -G "Unix Makefiles" .. && make && make install && \
+    nvm install v12.22.12 
+# compile the protocl
+# git clone https://github.com/confluentinc/avro-cpp-packaging && \
+RUN cd /root/avro/lang/c++ && \
+    mkdir build && cd build && \
+    cmake -G "Unix Makefiles" -DCMAKE_CXX_FLAGS="-fcoroutines" .. && make && make install && \
     # install protcol
-    cd ../.. && \
-    git clone https://bitbucket.org/energistics/etp-cpp.git && \ 
-    cd etp-cpp && \
+    cd /root/etp-cpp && \
     git submodule init && git submodule update && \
-    cmake . && make && make install 
+    cmake -DCMAKE_CXX_FLAGS="-fcoroutines" . && make  && make install 
