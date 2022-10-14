@@ -1,0 +1,21 @@
+FROM gcc:11.3.0
+EXPOSE 8080
+EXPOSE 22
+# # if set proxy
+#  ENV http_proxy "http://192.168.2.114:10811"
+#  ENV HTTP_PROXY "http://192.168.2.114:10811"
+#  ENV https_proxy "http://192.168.2.114:10811"
+#  ENV HTTPS_PROXY "http://192.168.2.114:10811"
+
+# APT init
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+RUN apt-get update && apt-get install git gdb cmake make \
+    uuid-dev libssl-dev zlib1g-dev libjsoncpp-dev \
+    postgresql-all openssh-server vim rsync -y
+# git init
+RUN cd /root/ && git clone https://github.com/drogonframework/drogon.git && \
+    cd /root/drogon && git submodule update --init
+
+RUN cd /root/drogon && mkdir build && cd build && \
+    cmake .. -DCMAKE_CXX_FLAGS="-fcoroutines" && make -j8 && make install
+
