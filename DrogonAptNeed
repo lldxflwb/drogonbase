@@ -1,0 +1,9 @@
+FROM gcc:11.3.0
+EXPOSE 8080
+EXPOSE 22
+
+# APT init
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+RUN apt-get update && apt-get install git gdb cmake make \
+    uuid-dev libssl-dev zlib1g-dev libjsoncpp-dev \
+    postgresql-all openssh-server vim rsync -y
