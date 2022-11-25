@@ -11,7 +11,8 @@ EXPOSE 22
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 RUN apt-get update && apt-get install git gdb cmake make \
     uuid-dev libssl-dev zlib1g-dev libjsoncpp-dev \
-    postgresql-all openssh-server vim rsync -y
+    postgresql-all openssh-server vim rsync \
+    flex bison libssl-dev -y
 # git init
 RUN cd /root/ && git clone https://github.com/drogonframework/drogon.git && \
     cd /root/drogon && git submodule update --init
