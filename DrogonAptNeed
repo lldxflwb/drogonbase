@@ -4,6 +4,6 @@ EXPOSE 22
 
 # APT init
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
-RUN apt-get update && apt-get install git gdb cmake make \
+RUN apt-get update && apt-get install valgrind git gdb cmake make \
     uuid-dev libssl-dev zlib1g-dev libjsoncpp-dev \
     postgresql-all openssh-server vim rsync -y
