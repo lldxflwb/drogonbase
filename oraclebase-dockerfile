@@ -1,4 +1,4 @@
-FROM gcc:11.3.0
+FROM registry.cn-chengdu.aliyuncs.com/lldxp/base:gcc
 EXPOSE 8080
 EXPOSE 22
 # ENV http_proxy "http://192.168.2.106:10811"
