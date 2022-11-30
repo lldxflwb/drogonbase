@@ -8,7 +8,7 @@ EXPOSE 22
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
 RUN apt-get update && \
-    apt-get install git gdb cmake make \
+    apt-get install git gdb cmake make valgrind \
     libjsoncpp-dev uuid-dev openssl \
     libssl-dev zlib1g-dev libboost-dev \
     postgresql-all openssh-server \
